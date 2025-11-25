@@ -1,0 +1,86 @@
+<section id="proyectos" class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="section-title fw-bold">Mis Proyectos</h2>
+        <p class="section-subtitle text-muted">Una selección de mis desarrollos más recientes.</p>
+    </div>
+
+    <div class="row justify-content-center g-4">
+      
+      {% for proyecto in proyectos %}
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
+        
+        <article class="card w-100 shadow-sm border-0 transition-hover">
+            
+            <div class="card-img-container card-img-top">
+                {% if proyecto.imagen %}
+                  <img src="{{ proyecto.imagen.url }}" class="img-logo rounded" alt="{{ proyecto.titulo }}">
+                {% else %}
+                  <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Proyecto" class="img-logo rounded" alt="Sin imagen">
+                {% endif %}
+            </div>
+            
+            <div class="card-body d-flex flex-column pt-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title fw-bold mb-0 text-dark">{{ proyecto.titulo }}</h5>
+                    <small class="text-muted fw-bold" style="font-size: 0.85rem;">
+                        {{ proyecto.fecha_desarrollo|date:"Y" }}
+                    </small>
+                </div>
+
+<p class="card-text text-muted small flex-grow-1">
+                    {{ proyecto.descripcion|truncatechars:90 }}
+                </p>
+                
+                <div class="mt-3 mb-2">
+                    {% for tech in proyecto.lista_tecnologias %}
+                        <span class="badge bg-light text-secondary border rounded-1 fw-normal px-2 py-1">
+                            {{ tech }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card-footer bg-white border-top-0 pb-4 pt-0">
+                <div class="d-grid gap-2">
+                    
+                    <a href="{% url 'proyecto_detalle' proyecto.id %}" class="btn btn-gris-oscuro">
+                        Ver Detalles
+                    </a>
+                    
+                    {% if proyecto.link_repo or proyecto.link_demo %}
+                    <div class="d-flex gap-2">
+                        {% if proyecto.link_repo %}
+                            <a href="{{ proyecto.link_repo }}" target="_blank" class="btn btn-gris-claro flex-grow-1">
+                                 Código
+                            </a>
+                        {% endif %}
+
+                        {% if proyecto.link_demo %}
+                            <a href="{{ proyecto.link_demo }}" target="_blank" class="btn btn-gris-claro flex-grow-1">
+                                 Demo
+                            </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </article>
+      </div>
+      {% empty %}
+        <div class="col-12 text-center py-5">
+            <h3>Aún no hay proyectos cargados 😢</h3>
+        </div>
+      {% endfor %}
+
+    </div>
+
+    {% if hay_mas_proyectos %}
+    <div class="text-center mt-5">
+        <a href="#" class="btn btn-dark px-5 rounded-3 shadow"> Ver todos los proyectos
+        </a>
+    </div>
+    {% endif %}
+
+</section>
+

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section style="background: var(--bg); color: white; padding: 4rem 0 2rem;">
+    <div class="container">
+        <a href="{% url 'home' %}#proyectos" class="text-white text-decoration-none mb-3 d-inline-block">
+            &larr; Volver al Portafolio
+        </a>
+        <h1 class="display-4 fw-bold">{{ proyecto.titulo }}</h1>
+        <p class="lead text-secondary">
+            Realizado en: {{ proyecto.fecha_desarrollo|date:"F Y" }}
+        </p>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row g-5 align-items-center"> <div class="col-lg-5 d-flex justify-content-center mb-4 mb-lg-0">
+            
+            {% if proyecto.imagen %}
+                <img src="{{ proyecto.imagen.url }}" 
+                     class="img-fluid rounded shadow" 
+                     style="max-height: 350px; width: auto; object-fit: contain;" 
+                     alt="{{ proyecto.titulo }}">
+            {% else %}
+                <img src="https://placehold.co/600x600/e2e8f0/64748b?text=Sin+Imagen" 
+                     class="img-fluid rounded shadow" 
+                     style="max-height: 350px; width: auto;" 
+                     alt="Sin imagen">
+            {% endif %}
+            
+        </div>
+
+        <div class="col-lg-7">
+            
+            <h3 class="mb-3 border-bottom pb-2 fw-bold text-dark">Sobre el proyecto</h3>
+            <p class="text-muted" style="line-height: 1.8; font-size: 1.05rem;">
+                {{ proyecto.descripcion }}
+            </p>
+
+            <h4 class="mt-4 mb-3 h5 fw-bold text-dark">Tecnologías usadas</h4>
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                {% for tech in proyecto.lista_tecnologias %}
+                    <span class="badge bg-light text-secondary border rounded-1 fw-normal px-3 py-2">
+                        {{ tech }}
+                    </span>
+                {% endfor %}
+            </div>
+
+            {% if proyecto.link_repo or proyecto.link_demo %}
+            <div class="card bg-light border-0 p-4 mt-4 rounded-3">
+                <h5 class="mb-3 fw-bold text-dark">Enlaces del Proyecto</h5>
+                <div class="d-grid gap-3">
+                    
+                    {% if proyecto.link_repo %}
+                        <a href="{{ proyecto.link_repo }}" target="_blank" class="btn btn-gris-claro py-2">
+                            📂 Ver Repositorio en GitHub
+                        </a>
+                    {% endif %}
+
+                    {% if proyecto.link_demo %}
+                        <a href="{{ proyecto.link_demo }}" target="_blank" class="btn btn-gris-oscuro py-2">
+                            🌐 Visitar Sitio Web
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

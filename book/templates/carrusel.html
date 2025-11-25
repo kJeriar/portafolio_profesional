@@ -1,0 +1,44 @@
+<section id="inicio" style="padding: 0;">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+      
+      <div class="carousel-indicators">
+        {% for slide in slides %}
+            <button type="button" 
+                    data-bs-target="#heroCarousel" 
+                    data-bs-slide-to="{{ forloop.counter0 }}" 
+                    class="{% if forloop.first %}active{% endif %}">
+            </button>
+        {% endfor %}
+      </div>
+
+      <div class="carousel-inner">
+        {% for slide in slides %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          
+          {% if slide.image %}
+            <img src="{{ slide.image.url }}" alt="{{ slide.title }}">
+          {% elif slide.image_url %}
+            <img src="{{ slide.image_url }}" alt="{{ slide.title }}">
+          {% else %}
+             <img src="https://placehold.co/1920x1080/1e293b/FFF?text=Sin+Imagen" alt="Sin imagen">
+          {% endif %}
+          
+          <div class="carousel-caption">
+            <h2 class="carousel-title">{{ slide.title }}</h2>
+            <p class="carousel-text">{{ slide.description }}</p>
+            <a href="{{ slide.button_link }}" class="btn btn-primary btn-lg">{{ slide.button_text }}</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+</section>
