@@ -1,8 +1,8 @@
-# Portafolio Profesional | Karla Dev
-> Proyecto desarrollado con Django para la presentación de trabajos y aptitudes de forma dinámica y profesional.
+# Portafolio Profesional | Karla Jeria
+> Portafolio web dinámico desarrollado en Django, optimizado para exhibir proyectos y habilidades con una presentación profesional y autogestionable.
 
 ## Descripción
-Este proyecto es un portafolio web de tipo **One Page** (página única), diseñado para ser elegante y funcional. Permite la administración total de contenido (proyectos, habilidades, y mensajes de contacto) a través del panel de Django Admin. El diseño utiliza una estética moderna con paleta de grises (Slate) y componentes modulares.
+El proyecto está construido bajo una arquitectura de vistas híbridas. La experiencia principal se centra en un scrollable single-page view (Página Única) para la sección de proyectos y contacto, mientras que las fichas de detalle y la información estática ('Sobre Mí') utilizan vistas separadas. Esto garantiza una navegación fluida para el contenido central y una estructura óptima para la información detallada.
 
 ---
 
