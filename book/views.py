@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Proyecto, CarouselItem, Skill, Mensaje, Curriculum
+from .models import Proyecto, CarouselItem, Skill, Mensaje, Curriculum, Perfil
 import os
 from django.http import FileResponse, Http404
 from django.conf import settings
@@ -72,3 +72,11 @@ def descargar_cv(request):
 
     return render(request, 'acceso_cv.html')
 
+def about(request):
+    # Intentamos obtener el perfil (o None si aún no creas la entrada)
+    try:
+        perfil = Perfil.objects.get(pk=1)
+    except Perfil.DoesNotExist:
+        perfil = None 
+        
+    return render(request, 'about.html', {'perfil': perfil})

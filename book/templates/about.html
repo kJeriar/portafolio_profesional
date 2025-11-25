@@ -13,33 +13,42 @@
 </section>
 
 <section class="container py-5">
+    
+    {% if perfil %}
     <div class="row align-items-center g-5">
         
         <div class="col-lg-5 text-center">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" 
-                 alt="Karla Dev" 
+            {% if perfil.foto %}
+            <img src="{{ perfil.foto.url }}" 
+                 alt="{{ perfil.titulo }}" 
                  class="img-fluid rounded shadow-sm border" 
                  style="max-height: 400px; width: auto;">
+            {% else %}
+            <img src="https://images.unsplash.com/photo-1542831371-29b0f741545e?q=80&w=1000&auto=format&fit=crop" 
+                 alt="Código Abstracto" 
+                 class="img-fluid rounded shadow-sm border" 
+                 style="max-height: 400px; width: auto;">
+            {% endif %}
         </div>
 
         <div class="col-lg-7">
-            <h3 class="fw-bold text-dark mb-3">Hola, soy Karla 👋</h3>
-            <h5 class="text-muted mb-4">Desarrolladora Web Full Stack</h5>
+            <h3 class="fw-bold text-dark mb-3">{{ perfil.titulo }} </h3>
+            <h5 class="text-muted mb-4">{{ perfil.subtitulo }}</h5>
             
             <div class="text-secondary" style="line-height: 1.8;">
                 <p>
-                    Soy una apasionada por la tecnología y el desarrollo de soluciones web eficientes. 
-                    Mi enfoque está en crear aplicaciones que no solo funcionen bien, sino que también 
-                    sean intuitivas y fáciles de administrar.
+                    {{ perfil.bio_parrafo1 }}
                 </p>
+                {% if perfil.bio_parrafo2 %}
                 <p>
-                    Tengo experiencia trabajando con <strong>Python y Django</strong> en el backend, 
-                    mientras que en el frontend disfruto creando interfaces limpias con Bootstrap y CSS moderno.
+                    {{ perfil.bio_parrafo2 }}
                 </p>
+                {% endif %}
+                {% if perfil.bio_parrafo3 %}
                 <p>
-                    Siempre estoy aprendiendo nuevas herramientas para mejorar mi flujo de trabajo y 
-                    entregar productos de alta calidad.
+                    {{ perfil.bio_parrafo3 }}
                 </p>
+                {% endif %}
             </div>
 
             <div class="mt-4 d-flex gap-3">
@@ -54,8 +63,12 @@
         </div>
 
     </div>
+    {% else %}
+        <div class="text-center alert alert-warning">
+            <h4 class="alert-heading">Perfil no configurado</h4>
+            <p>Por favor, ve al admin y crea la única entrada de **Perfil Personal** para llenar esta sección.</p>
+        </div>
+    {% endif %}
 </section>
-
-
 
 {% endblock %}

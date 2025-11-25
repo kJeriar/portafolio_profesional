@@ -1,0 +1,48 @@
+# =======================================================
+# DEPENDENCIAS Y ENTORNOS
+# =======================================================
+
+# Entorno Virtual de Python (CRUCIAL)
+venv/
+.venv/
+env/
+
+# Cache y archivos compilados de Python
+__pycache__/
+*.pyc
+
+# Logs y archivos temporales de ejecución
+*.log
+*.tmp
+*.egg-info/
+.pytest_cache/
+
+# =======================================================
+# DJANGO Y SECRETS
+# =======================================================
+
+# Base de datos SQLite 
+db.sqlite3
+*.sqlite3
+
+# Archivos de configuración local y secretos (CRUCIAL)
+.env
+local_settings.py
+.secret_key
+
+# Archivos subidos por el usuario (MEDIA)
+
+/media/ 
+
+# Archivos estáticos recolectados (generados en el servidor)
+/staticfiles/ 
+*.pot
+*.mo
+
+# =======================================================
+# EDITORES Y OS
+# =======================================================
+.DS_Store # Mac OS
+*.sublime-project
+*.sublime-workspace
+.vscode/ # Configuración de Visual Studio Code

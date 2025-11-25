@@ -87,3 +87,33 @@ class Curriculum(models.Model):
 
     def __str__(self):
         return f"{self.nombre} (Clave: {self.codigo_acceso})"
+    
+from django.db import models
+# ... (otras importaciones) ...
+
+class Perfil(models.Model):
+    # Campos editables
+    titulo = models.CharField(max_length=100, verbose_name="Título Principal (ej: Hola, soy Karla)")
+    subtitulo = models.CharField(max_length=150, verbose_name="Subtítulo (ej: Desarrolladora Web Full Stack)")
+    
+    # Campo de imagen (para la foto tecnológica)
+    foto = models.ImageField(upload_to='perfil/', verbose_name="Foto de Perfil/Tecnológica", blank=True, null=True)
+    
+    # Biografía y contenido
+    bio_parrafo1 = models.TextField(verbose_name="Párrafo 1 (Mi Enfoque)")
+    bio_parrafo2 = models.TextField(verbose_name="Párrafo 2 (Experiencia)", blank=True, null=True)
+    bio_parrafo3 = models.TextField(verbose_name="Párrafo 3 (Compromiso)", blank=True, null=True)
+    
+    class Meta:
+        verbose_name = "Perfil Personal"
+        verbose_name_plural = "Perfil Personal (¡Solo 1!)"
+    
+    def __str__(self):
+        return self.titulo
+    
+    # Truco para que el Admin solo muestre una entrada
+    def save(self, *args, **kwargs):
+        if Perfil.objects.exists() and not self.pk:
+            # Si ya existe una entrada y no estamos editando (es nueva), no hace nada
+            pass
+        super(Perfil, self).save(*args, **kwargs)
