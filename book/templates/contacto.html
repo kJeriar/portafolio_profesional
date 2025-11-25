@@ -25,7 +25,13 @@
         
         <div class="form-group">
           <label>Mensaje</label>
-          <textarea rows="4" name="contenido" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+          
+          <textarea rows="4" name="contenido" placeholder="Cuéntame sobre tu proyecto..." required>
+            {% if request.GET.mensaje %}
+                {{ request.GET.mensaje }}
+            {% endif %}
+          </textarea>
+          
         </div>
         
         <button type="submit" class="btn" style="width:100%">Enviar Mensaje</button>

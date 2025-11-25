@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section style="min-height: 80vh; display: flex; align-items: center; background-color: var(--bg);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
+                        <h3 class="fw-bold text-dark"> Archivo Protegido</h3>
+                        <p class="text-muted small">Este documento requiere un código de acceso.</p>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger text-center py-2" style="font-size: 0.9rem;">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <label class="fw-bold small mb-1">Código de Seguridad</label>
+                                <input type="password" name="codigo" class="form-control form-control-lg text-center" placeholder="****" required style="letter-spacing: 5px;">
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-gris-oscuro py-2">
+                                    Desbloquear y Descargar
+                                </button>
+                            </div>
+                        </form>
+
+                        <hr class="my-4 opacity-25">
+
+                        <div class="text-center">
+                            <p class="mb-2 text-muted small">¿No tienes el código?</p>
+                            
+                            <a href="{% url 'home' %}?mensaje=Hola Karla, te escribo de la empresa [NOMBRE] y me gustaría solicitar la clave para ver tu CV de [PERFIL].#contacto" 
+                               class="btn btn-gris-claro w-100">
+                                Solicitar Acceso
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a href="{% url 'about' %}" class="text-secondary text-decoration-none small">
+                        &larr; Volver atrás
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

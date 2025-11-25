@@ -73,3 +73,17 @@ class Mensaje(models.Model):
 
     def __str__(self):
         return f"Mensaje de {self.nombre}"
+    
+class Curriculum(models.Model):
+    nombre = models.CharField(max_length=100, verbose_name="Nombre interno (ej: CV Python)")
+    codigo_acceso = models.CharField(max_length=7, unique=True, verbose_name="Clave de Seguridad")
+    archivo = models.FileField(upload_to='cvs/', verbose_name="Archivo PDF")
+    
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Curriculum Protegido"
+        verbose_name_plural = "Curriculums Protegidos"
+
+    def __str__(self):
+        return f"{self.nombre} (Clave: {self.codigo_acceso})"

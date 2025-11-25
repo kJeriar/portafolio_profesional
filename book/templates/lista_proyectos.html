@@ -1,9 +1,21 @@
-<section id="proyectos" class="container py-5">
-    <div class="text-center mb-5">
-        <h2 class="section-title fw-bold">Mis Proyectos</h2>
-        <p class="section-subtitle text-muted">Una selección de mis desarrollos más recientes.</p>
-    </div>
+{% extends 'base.html' %}
+{% load static %}
 
+{% block content %}
+
+<section style="background: var(--bg); color: white; padding: 4rem 0 2rem;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Portafolio Completo</h1>
+        <p class="lead text-secondary">
+            Explora todos mis trabajos y desarrollos.
+        </p>
+        <a href="{% url 'home' %}" class="btn btn-outline-light mt-3" style="border-radius: 6px;">
+            &larr; Volver al Inicio
+        </a>
+    </div>
+</section>
+
+<section class="container py-5">
     <div class="row justify-content-center g-4">
       
       {% for proyecto in proyectos %}
@@ -27,7 +39,7 @@
                     </small>
                 </div>
 
-<p class="card-text text-muted small flex-grow-1">
+                <p class="card-text text-muted small flex-grow-1">
                     {{ proyecto.descripcion|truncatechars:90 }}
                 </p>
                 
@@ -42,7 +54,6 @@
 
             <div class="card-footer bg-white border-top-0 pb-4 pt-0">
                 <div class="d-grid gap-2">
-                    
                     <a href="{% url 'proyecto_detalle' proyecto.id %}" class="btn btn-gris-oscuro">
                         Ver Detalles
                     </a>
@@ -51,13 +62,12 @@
                     <div class="d-flex gap-2">
                         {% if proyecto.link_repo %}
                             <a href="{{ proyecto.link_repo }}" target="_blank" class="btn btn-gris-claro flex-grow-1">
-                                 Código
+                                </> Código
                             </a>
                         {% endif %}
-
                         {% if proyecto.link_demo %}
                             <a href="{{ proyecto.link_demo }}" target="_blank" class="btn btn-gris-claro flex-grow-1">
-                                 Demo
+                                🌐 Demo
                             </a>
                         {% endif %}
                     </div>
@@ -69,26 +79,11 @@
       </div>
       {% empty %}
         <div class="col-12 text-center py-5">
-            <h3>Aún no hay proyectos cargados 😢</h3>
+            <h3>No hay proyectos para mostrar.</h3>
         </div>
       {% endfor %}
 
     </div>
-    {% if hay_mas_proyectos %}
-    <div class="text-center mt-5">
-        <a href="{% url 'lista_proyectos' %}" class="btn btn-gris-oscuro px-5 shadow">
-            Ver todos los proyectos
-        </a>
-    </div>
-    {% endif %}
-    {% comment %} {% if hay_mas_proyectos %}
-    <div class="text-center mt-5">
-        <a href="#" class="btn btn-dark px-5 rounded-3 shadow"> Ver todos los proyectos
-        </a>
-    </div>
-    {% endif %} {% endcomment %}
-
 </section>
 
-
-
+{% endblock %}

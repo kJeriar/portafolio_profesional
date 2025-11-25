@@ -1,6 +1,6 @@
 from django.contrib import admin
 # AQUÍ ESTABA EL ERROR: Faltaba agregar ", Mensaje" al final
-from .models import Proyecto, CarouselItem, Skill, Mensaje 
+from .models import Proyecto, CarouselItem, Skill, Mensaje, Curriculum 
 
 # 1. Configuración para Proyectos
 class ProyectoAdmin(admin.ModelAdmin):
@@ -25,3 +25,10 @@ admin.site.register(Proyecto, ProyectoAdmin)
 admin.site.register(CarouselItem, CarouselAdmin)
 admin.site.register(Skill, SkillAdmin)
 admin.site.register(Mensaje, MensajeAdmin)
+
+# 2. Configuración para los CVs
+class CurriculumAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'codigo_acceso', 'created')
+    search_fields = ('nombre', 'codigo_acceso') # Para buscar rápido si tienes muchos
+
+admin.site.register(Curriculum, CurriculumAdmin)

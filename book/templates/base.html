@@ -12,14 +12,44 @@
 </head>
 <body>
 
-  <header>
+<header>
     <div class="header-inner">
-      <div class="logo">Karla Jeria </div>
-      <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+
+      
+      <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: var(--bg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+    <div class="container">
+      
+      <a class="navbar-brand fw-bold" href="{% url 'home' %}" style="letter-spacing: 0.5px;">
+        Karla Jeria
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">Sobre Mí</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}#proyectos">Proyectos</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}#contacto">Contacto</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
     </div>
   </header>
 

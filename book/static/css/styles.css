@@ -60,39 +60,52 @@ section {
 }
 
 /* ================= HEADER ================= */
-header {
-  background: var(--bg);
-  color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
+/* ================= NAVBAR ================= */
 
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  max-width: 1080px;
-  margin: 0 auto;
-}
-
-.logo {
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  font-size: 1.1rem;
-}
-
-nav a {
-  color: #94a3b8;
-  margin-left: 1.5rem;
+/* Estilo base de los enlaces */
+.navbar-nav .nav-link {
+  color: #94a3b8 !important; /* Gris medio (Slate 400) por defecto */
   font-size: 0.95rem;
-  transition: color 0.2s;
+  font-weight: 500;
+  margin-left: 1.5rem;
+  padding: 0.5rem 0; /* Quitamos padding lateral para que la línea coincida con el texto */
+  position: relative; /* Necesario para posicionar la línea */
+  transition: color 0.3s ease;
 }
 
-nav a:hover {
-  color: var(--accent);
+/* La Línea Mágica (Invisible al inicio) */
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0; /* Empieza sin ancho */
+  height: 2px; /* Grosor de la línea */
+  bottom: 0;
+  left: 0;
+  background-color: #e2e8f0; /* Gris muy clarito (Slate 200) */
+  transition: width 0.3s ease; /* Animación suave */
+}
+
+/* Efecto Hover */
+.navbar-nav .nav-link:hover {
+  color: #f1f5f9 !important; /* Texto se vuelve casi blanco (Gris muy claro) */
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%; /* La línea crece hasta el 100% del texto */
+}
+
+/* Ajuste Móvil */
+@media (max-width: 991px) {
+  .navbar-nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-link {
+    margin-left: 0;
+    display: inline-block; /* Para que la línea se ajuste al texto en móvil */
+  }
 }
 
 /* ================= HERO Y CARRUSEL ================= */

@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Proyecto, CarouselItem, Skill, Mensaje
+from .models import Proyecto, CarouselItem, Skill, Mensaje, Curriculum
+import os
+from django.http import FileResponse, Http404
+from django.conf import settings
 
 def home(request):
     # --- POST (Formulario) ---
@@ -32,8 +35,40 @@ def home(request):
         'skills': skills
     })
 
-# --- VISTA NUEVA: DETALLE DEL PROYECTO (SINGLE) ---
+# --- DETALLE DEL PROYECTO (SINGLE) ---
 def proyecto_detalle(request, proyecto_id):
     # Busca el proyecto o lanza error 404 si no existe
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
     return render(request, 'proyecto_detalle.html', {'proyecto': proyecto})
+
+def lista_proyectos(request):
+    # Traemos TODOS los proyectos, ordenados por fecha
+    proyectos = Proyecto.objects.all().order_by('-fecha_desarrollo')
+    return render(request, 'lista_proyectos.html', {'proyectos': proyectos})
+
+def about(request):
+    return render(request, 'about.html')
+
+
+def descargar_cv(request):
+    if request.method == 'POST':
+        codigo_ingresado = request.POST.get('codigo')
+        
+        # Buscamos en la BD: ¿Existe algún CV con esta clave?
+        # .filter(...).first() devuelve el objeto o None si no existe
+        cv_encontrado = Curriculum.objects.filter(codigo_acceso=codigo_ingresado).first()
+        
+        if cv_encontrado:
+            # ¡Clave correcta! Iniciamos la descarga
+            # Usamos el nombre original del archivo para la descarga
+            return FileResponse(
+                cv_encontrado.archivo.open('rb'), 
+                as_attachment=True, 
+                filename=f"CV_Karla_{cv_encontrado.nombre}.pdf"
+            )
+        else:
+            # Clave no encontrada en la base de datos
+            messages.error(request, 'Código incorrecto o expirado. Inténtalo de nuevo.')
+
+    return render(request, 'acceso_cv.html')
+
