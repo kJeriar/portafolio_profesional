@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Proyecto, CarouselItem, Skill, Mensaje, Curriculum, Perfil
+from django.core.mail import send_mail
+from .models import Proyecto, CarouselItem, Skill, Mensaje, Curriculum, Perfil, Tecnologia
 import os
 from django.http import FileResponse, Http404
 from django.conf import settings
@@ -8,9 +9,7 @@ from django.conf import settings
 def home(request):
     # --- POST (Formulario) ---
     if request.method == 'POST':
-        # ... (Mantén tu lógica de formulario aquí igual que antes) ...
         nombre = request.POST.get('nombre')
-        # ... etc ...
         messages.success(request, 'Mensaje enviado')
         return redirect('home')
 
@@ -22,7 +21,7 @@ def home(request):
     # 2. Cortar la lista: Solo los primeros 8 para el Home
     proyectos_home = todos_proyectos[:8]
     
-    # 3. ¿Hay más de 8? (Para saber si mostramos el botón "Ver todos")
+    # 3. si hay mas de 8 mostramos el botón "Ver todos"
     hay_mas_proyectos = todos_proyectos.count() > 8
 
     slides = CarouselItem.objects.all().order_by('order')
@@ -30,7 +29,7 @@ def home(request):
     
     return render(request, 'index.html', {
         'proyectos': proyectos_home,       # Enviamos solo 8
-        'hay_mas_proyectos': hay_mas_proyectos, # Enviamos el "chivato" booleano
+        'hay_mas_proyectos': hay_mas_proyectos, 
         'slides': slides,
         'skills': skills
     })
@@ -41,10 +40,33 @@ def proyecto_detalle(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
     return render(request, 'proyecto_detalle.html', {'proyecto': proyecto})
 
+# def lista_proyectos(request):
+#     # Traemos TODOS los proyectos, ordenados por fecha
+#     proyectos = Proyecto.objects.all().order_by('-fecha_desarrollo')
+#     return render(request, 'lista_proyectos.html', {'proyectos': proyectos})
+
 def lista_proyectos(request):
-    # Traemos TODOS los proyectos, ordenados por fecha
-    proyectos = Proyecto.objects.all().order_by('-fecha_desarrollo')
-    return render(request, 'lista_proyectos.html', {'proyectos': proyectos})
+    # 1. Traer TODAS las tecnologías para el dropdown del formulario
+    todas_tecnologias = Tecnologia.objects.all().order_by('nombre')
+
+    # 2. Capturar el filtro de la URL
+    tecnologia_filtrar = request.GET.get('tec')
+    
+    # 3. Inicialmente, traemos todos los proyectos
+    proyectos = Proyecto.objects.all().order_by('-fecha_desarrollo') 
+    
+    if tecnologia_filtrar:
+
+        proyectos = proyectos.filter(
+            tecnologias__nombre__iexact=tecnologia_filtrar 
+        )
+        
+        
+    return render(request, 'lista_proyectos.html', {
+        'proyectos': proyectos,
+        'tecnologias': todas_tecnologias, 
+        'tecnologia_activa': tecnologia_filtrar 
+    })
 
 def about(request):
     return render(request, 'about.html')

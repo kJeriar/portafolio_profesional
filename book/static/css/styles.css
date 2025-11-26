@@ -3,12 +3,12 @@
   --bg: #0f172a;
   --bg-soft: #0b1220;
   --card: #ffffff;
-  --accent: #38bdf8;
+  --accent: #38bdf8; 
   --accent-soft: #e0f2fe;
   --text: #0f172a;
   --muted: #64748b;
   
-  /* Colores para botones grises */
+  /* Paleta Slate (Grises azulados) */
   --slate-50: #f8fafc;
   --slate-100: #f1f5f9;
   --slate-200: #e2e8f0;
@@ -59,53 +59,58 @@ section {
   object-fit: cover;
 }
 
-/* ================= HEADER ================= */
 /* ================= NAVBAR ================= */
+header {
+  background: var(--bg);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
 
-/* Estilo base de los enlaces */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 1.1rem;
+}
+
 .navbar-nav .nav-link {
-  color: #94a3b8 !important; /* Gris medio (Slate 400) por defecto */
+  color: var(--slate-400) !important;
   font-size: 0.95rem;
   font-weight: 500;
   margin-left: 1.5rem;
-  padding: 0.5rem 0; /* Quitamos padding lateral para que la línea coincida con el texto */
-  position: relative; /* Necesario para posicionar la línea */
+  padding: 0.5rem 0;
+  position: relative;
   transition: color 0.3s ease;
 }
 
-/* La Línea Mágica (Invisible al inicio) */
 .navbar-nav .nav-link::after {
   content: '';
   position: absolute;
-  width: 0; /* Empieza sin ancho */
-  height: 2px; /* Grosor de la línea */
+  width: 0;
+  height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #e2e8f0; /* Gris muy clarito (Slate 200) */
-  transition: width 0.3s ease; /* Animación suave */
+  background-color: var(--slate-200);
+  transition: width 0.3s ease;
 }
 
-/* Efecto Hover */
 .navbar-nav .nav-link:hover {
-  color: #f1f5f9 !important; /* Texto se vuelve casi blanco (Gris muy claro) */
+  color: var(--slate-100) !important;
 }
 
 .navbar-nav .nav-link:hover::after {
-  width: 100%; /* La línea crece hasta el 100% del texto */
-}
-
-/* Ajuste Móvil */
-@media (max-width: 991px) {
-  .navbar-nav {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    text-align: center;
-  }
-  
-  .navbar-nav .nav-link {
-    margin-left: 0;
-    display: inline-block; /* Para que la línea se ajuste al texto en móvil */
-  }
+  width: 100%;
 }
 
 /* ================= HERO Y CARRUSEL ================= */
@@ -173,7 +178,7 @@ section {
   margin-bottom: 2rem;
 }
 
-/* ================= PROYECTOS (TARJETAS) ================= */
+/* ================= PROYECTOS ================= */
 .section-title {
   text-align: center;
   font-size: 2rem;
@@ -205,7 +210,6 @@ section {
   flex-direction: column;
 }
 
-/* Efecto Hover en la tarjeta completa */
 .transition-hover {
   transition: transform 0.2s;
 }
@@ -215,7 +219,6 @@ section {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-/* Contenedor de Imagen (Logos centrados) */
 .card-img-container {
   height: 200px;
   width: 100%;
@@ -239,7 +242,6 @@ section {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Info del proyecto */
 .project-info {
   padding: 1.5rem;
   flex: 1;
@@ -278,26 +280,25 @@ section {
   font-weight: 600;
 }
 
-/* ================= BOTONES PERSONALIZADOS ================= */
-
-/* Botón General (Hero) */
+/* ================= BOTONES ================= */
 .btn {
   display: inline-block;
-  background: var(--accent); 
-  color: #0f172a; 
-  padding: 0.6rem 1.2rem; 
-  border-radius: 6px; 
+  background: var(--slate-600); /* CAMBIO: Gris Oscuro en lugar de Celeste */
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
   font-weight: 600;
-  border: none;
+  border: 1px solid var(--slate-600);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 6px rgba(56, 189, 248, 0.2); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  filter: brightness(1.1);
-  box-shadow: 0 6px 12px rgba(56, 189, 248, 0.4);
+  background-color: var(--slate-800);
+  border-color: var(--slate-800);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
@@ -312,7 +313,6 @@ section {
   border-color: #fff;
 }
 
-/* Botones Estilo Bloque (Proyectos) */
 .btn-gris-oscuro {
   background-color: var(--slate-600);
   color: #ffffff;
@@ -356,7 +356,7 @@ section {
   color: #fff;
   border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 0.6rem 1.2rem;
-  border-radius: 6px; 
+  border-radius: 6px;
   font-weight: 600;
   margin-left: 0.5rem;
   text-decoration: none;
@@ -441,6 +441,19 @@ footer {
 }
 
 /* ================= RESPONSIVE ================= */
+@media (max-width: 991px) {
+  .navbar-nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-link {
+    margin-left: 0;
+    display: inline-block;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -449,10 +462,6 @@ footer {
   
   .hero-subtitle {
     margin-inline: auto;
-  }
-  
-  nav {
-    display: none;
   }
   
   .carousel-title {

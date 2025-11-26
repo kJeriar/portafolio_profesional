@@ -1,11 +1,21 @@
 from django.contrib import admin
-# AQUÍ ESTABA EL ERROR: Faltaba agregar ", Mensaje" al final
-from .models import Proyecto, CarouselItem, Skill, Mensaje, Curriculum, Perfil 
+from .models import Perfil, ExperienciaLaboral, Proyecto, CarouselItem, Skill, Mensaje, Curriculum
 
 # 1. Configuración para Proyectos
 class ProyectoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'tecnologias', 'fecha_desarrollo')
+    # 1. Cambiamos 'tecnologias' por nuestra función personalizada 'mostrar_tecnologias'
+    list_display = ('titulo', 'mostrar_tecnologias', 'fecha_desarrollo')
+    
+    # 2. Mantenemos el filtro, aquí sí funciona directo
+    list_filter = ('tecnologias',)
 
+    # 3. Creamos la función mágica para ver la lista
+    def mostrar_tecnologias(self, obj):
+        # Esto toma todas las tecnologías y las une con una coma
+        return ", ".join([t.nombre for t in obj.tecnologias.all()])
+    
+    # Le ponemos un nombre bonito a la columna
+    mostrar_tecnologias.short_description = "Tecnologías"
 # 2. Configuración para el Carrusel
 class CarouselAdmin(admin.ModelAdmin):
     list_display = ('title', 'order', 'button_text') 
@@ -33,3 +43,5 @@ class CurriculumAdmin(admin.ModelAdmin):
     search_fields = ('nombre', 'codigo_acceso') # Para buscar rápido si tienes muchos
 
 admin.site.register(Curriculum, CurriculumAdmin)
+
+
