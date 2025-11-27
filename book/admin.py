@@ -1,5 +1,13 @@
 from django.contrib import admin
-from .models import Perfil, ExperienciaLaboral, Proyecto, CarouselItem, Skill, Mensaje, Curriculum
+from .models import (
+    Perfil,
+    ExperienciaLaboral,
+    Proyecto,
+    CarouselItem,
+    Skill,
+    Mensaje,
+    Curriculum,
+)
 
 
 class ProyectoAdmin(admin.ModelAdmin):
