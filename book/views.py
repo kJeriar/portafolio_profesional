@@ -7,33 +7,40 @@ from django.http import FileResponse, Http404
 from django.conf import settings
 
 def home(request):
-    # --- POST (Formulario) ---
+    # --- POST  ---
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
-        messages.success(request, 'Mensaje enviado')
+        email = request.POST.get('email')
+        contenido = request.POST.get('contenido')  # 👈 IGUAL QUE EL name DEL TEXTAREA
+
+        # Validación básica
+        if nombre and email and contenido:
+            Mensaje.objects.create(
+                nombre=nombre,
+                email=email,
+                contenido=contenido       # 👈 coincide con tu modelo
+            )
+            messages.success(request, 'Mensaje enviado con éxito')
+        else:
+            messages.error(request, 'Todos los campos son obligatorios')
+
         return redirect('home')
 
-    # --- GET (Carga de datos) ---
-    
-    # 1. Traer TODOS los proyectos ordenados
+    # --- GET  ---
     todos_proyectos = Proyecto.objects.all().order_by('-created')
-    
-    # 2. Cortar la lista: Solo los primeros 8 para el Home
     proyectos_home = todos_proyectos[:8]
-    
-    # 3. si hay mas de 8 mostramos el botón "Ver todos"
     hay_mas_proyectos = todos_proyectos.count() > 8
 
     slides = CarouselItem.objects.all().order_by('order')
     skills = Skill.objects.all()
     
     return render(request, 'index.html', {
-        'proyectos': proyectos_home,       # Enviamos solo 8
+        'proyectos': proyectos_home,
         'hay_mas_proyectos': hay_mas_proyectos, 
         'slides': slides,
         'skills': skills
     })
-
+    
 # --- DETALLE DEL PROYECTO (SINGLE) ---
 def proyecto_detalle(request, proyecto_id):
     # Busca el proyecto o lanza error 404 si no existe
