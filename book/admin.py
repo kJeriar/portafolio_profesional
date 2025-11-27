@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Perfil, ExperienciaLaboral, Proyecto, CarouselItem, Skill, Mensaje, Curriculum
-
+from .models import Perfil, ExperienciaLaboral, Proyecto, CarouselItem, Skill, Mensaje, Curriculum, Tecnologia
 # 1. Configuración para Proyectos
 class ProyectoAdmin(admin.ModelAdmin):
     # 1. Cambiamos 'tecnologias' por nuestra función personalizada 'mostrar_tecnologias'
@@ -29,6 +28,10 @@ class SkillAdmin(admin.ModelAdmin):
 class MensajeAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'email', 'created_at')
     readonly_fields = ('created_at',)
+
+@admin.register(Tecnologia)
+class TecnologiaAdmin(admin.ModelAdmin):
+    list_display = ('nombre',)
 
 # --- Registro de Modelos ---
 admin.site.register(Proyecto, ProyectoAdmin)
