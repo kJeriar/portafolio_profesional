@@ -41,10 +41,12 @@
 
             <h4 class="mt-4 mb-3 h5 fw-bold text-dark">Tecnologías usadas</h4>
             <div class="d-flex flex-wrap gap-2 mb-4">
-                {% for tech in proyecto.lista_tecnologias %}
+                {% for tech in proyecto.tecnologias.all %}
                     <span class="badge bg-light text-secondary border rounded-1 fw-normal px-3 py-2">
-                        {{ tech }}
+                        {{ tech.name }}
                     </span>
+                {% empty %}
+                    <span class="text-muted">Aún no he asociado tecnologías a este proyecto.</span>
                 {% endfor %}
             </div>
 
@@ -55,13 +57,13 @@
                     
                     {% if proyecto.link_repo %}
                         <a href="{{ proyecto.link_repo }}" target="_blank" class="btn btn-gris-claro py-2">
-                            📂 Ver Repositorio en GitHub
+                             Ver Repositorio en GitHub
                         </a>
                     {% endif %}
 
                     {% if proyecto.link_demo %}
                         <a href="{{ proyecto.link_demo }}" target="_blank" class="btn btn-gris-oscuro py-2">
-                            🌐 Visitar Sitio Web
+                             Visitar Sitio Web
                         </a>
                     {% endif %}
 
